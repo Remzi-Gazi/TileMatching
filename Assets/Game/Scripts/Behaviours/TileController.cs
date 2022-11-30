@@ -1,0 +1,99 @@
+using System.Collections;
+using UnityEngine;
+
+public class TileController : MonoBehaviour
+{
+    private Tweener _tweener;
+
+    //Related tile
+    private Tile _tile;
+    //Related Game Object
+    private GameObject _tileGameObject;
+
+    //components
+    private SpriteRenderer _tileSpriteRenderer;
+    private Transform _transform;
+
+    private void Awake()
+    {
+        _tileGameObject = gameObject;
+        _transform = GetComponent<Transform>();
+        _tileSpriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void UpdateSprite(ITileMatching tileMatching, GameRule gameRule, TileData tileData)
+    {
+        int tileTier = tileMatching.GetMatchTier(_tile, gameRule);
+        //dictionaryde keyle yapsan daha iyi olur
+        if(tileTier == 0)
+        {
+            _tileSpriteRenderer.sprite = tileData.Tiles[_tile.ColorId].defaultTile;
+        }
+        else if (tileTier == 1)
+        {
+            _tileSpriteRenderer.sprite = tileData.Tiles[_tile.ColorId].tierA;
+        }
+        else if (tileTier == 2)
+        {
+            _tileSpriteRenderer.sprite = tileData.Tiles[_tile.ColorId].tierB;
+        }
+        else if (tileTier == 3)
+        {
+            _tileSpriteRenderer.sprite = tileData.Tiles[_tile.ColorId].tierC;
+        }
+
+        _tileSpriteRenderer.sortingOrder = -_tile.Row + 20;
+    }
+
+    public void UpdateTile(int delayMultiplier)
+    {
+        if(_tile.TileState == TileState.Stable)
+        {
+            return;
+        }
+        else if(_tile.TileState == TileState.Instantiated)
+        {
+            //set initial position
+            _transform.position = _tweener.InitialTileSpawnPosition;
+            //animate to final position
+            StartCoroutine(ScheduleTweens(delayMultiplier));
+            //make tile stable
+            _tile.TileState = TileState.Stable;
+        }
+        else if (_tile.TileState == TileState.Blasted)
+        {
+            //set gameobjects inactive
+            _tileGameObject.SetActive(false);
+            //make it stable
+            _tile.TileState = TileState.Stable;
+        }
+        else if (_tile.TileState == TileState.Shifted)
+        {
+            _tweener.ShiftTile(_transform, _tile.Row, _tile.Column);
+            //make tile stable
+            _tile.TileState = TileState.Stable;
+        }
+        else if (_tile.TileState == TileState.Respawned)
+        {
+            _tileGameObject.SetActive(true);
+            //set initial respawn position
+            _transform.position = _tweener.TilePlacementPositions[_tile.Row, _tile.Column] + _tweener.TileReplacementHeight;
+            _tweener.ShiftTile(_transform, _tile.Row, _tile.Column);
+            _tile.TileState = TileState.Stable;
+        }
+    }
+
+    public Tile Tile { get => _tile; set => _tile = value; }
+    public Tweener Tweener { get => _tweener; set => _tweener = value; }
+
+    private IEnumerator ScheduleTweens(int delayMultiplier)
+    {
+        //Debug.Log(_tweener.RuntimeTileReplacementDelay);
+        yield return new WaitForSeconds(delayMultiplier * _tweener.TilePlacementDelay);
+        _tweener.PlaceTileInitially(_transform, _tile.Row, _tile.Column);
+        //_tilePlacementDelay += _tweener.TilePlacementDelay;
+    }
+
+}
+
+

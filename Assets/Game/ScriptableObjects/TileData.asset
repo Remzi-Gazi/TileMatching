@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e08d9e8e0ab8aa7418f028240ca225da, type: 3}
+  m_Name: TileData
+  m_EditorClassIdentifier: 
+  TileSize: {x: 2.2, y: 2.27}
+  Tiles:
+  - colorId: 0
+    defaultTile: {fileID: 21300000, guid: 25cb3b9887d4708488419f12acb5fc7d, type: 3}
+    tierA: {fileID: 21300000, guid: 0378660e08c87484bbbe11cfc37a2318, type: 3}
+    tierB: {fileID: 21300000, guid: ab4c8ed71757d81449a107229e7441ef, type: 3}
+    tierC: {fileID: 21300000, guid: 57d9922906d1b8a4cb833029ed29d02e, type: 3}
+  - colorId: 1
+    defaultTile: {fileID: 21300000, guid: 3d2957dbf7c30ee4da575cdac85922ec, type: 3}
+    tierA: {fileID: 21300000, guid: bf3078267e4f23749a259eea0173ca0f, type: 3}
+    tierB: {fileID: 21300000, guid: 497bbc8bac3ad7948ba4dc3f9e9efda4, type: 3}
+    tierC: {fileID: 21300000, guid: 715270a9897c6194186da143e80106b3, type: 3}
+  - colorId: 2
+    defaultTile: {fileID: 21300000, guid: c99ccfd26629f74499c2f31aec1d17f7, type: 3}
+    tierA: {fileID: 21300000, guid: 7db52ee79fe3ceb43a95754f46bd17dc, type: 3}
+    tierB: {fileID: 21300000, guid: 0c77c75dcbcd96e4a9422129b7b2d02e, type: 3}
+    tierC: {fileID: 21300000, guid: d7275db1d23be0d47a2c1ebdfd9f4565, type: 3}
+  - colorId: 3
+    defaultTile: {fileID: 21300000, guid: 55d2858b9b2c9d3499618ef673b428a1, type: 3}
+    tierA: {fileID: 21300000, guid: c89681cf2438d6f41bdbd18b097e5dc0, type: 3}
+    tierB: {fileID: 21300000, guid: d8a66976286ab6a40a972a0240c28cc4, type: 3}
+    tierC: {fileID: 21300000, guid: 3ad4bdd1564454647ab3e2146c4c196e, type: 3}
+  - colorId: 4
+    defaultTile: {fileID: 21300000, guid: da8ad7c6d8d2db343bc6d990ebddb04d, type: 3}
+    tierA: {fileID: 21300000, guid: 12c61dc7e38a9b749bddf7ab59a6f80b, type: 3}
+    tierB: {fileID: 21300000, guid: f3e6b89715fd55d4ab08819f9cd4c577, type: 3}
+    tierC: {fileID: 21300000, guid: 6134a03fd6369ed4fa0901ade5858e8e, type: 3}
+  - colorId: 5
+    defaultTile: {fileID: 21300000, guid: e8e1cc50ba962c747af94d5613090ca4, type: 3}
+    tierA: {fileID: 21300000, guid: 9b9ca558822bed94db7683d75933a215, type: 3}
+    tierB: {fileID: 21300000, guid: c910bc3505a18e249a90ad7c01ea85f0, type: 3}
+    tierC: {fileID: 21300000, guid: fa7b15921ac09bd4bb57b7c6481ea9c2, type: 3}
