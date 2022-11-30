@@ -9,6 +9,9 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Uu]ser[Ss]ettings/
+/[Rr]esources/
+/[Pp]lugin/
+/3rdParty/
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data
