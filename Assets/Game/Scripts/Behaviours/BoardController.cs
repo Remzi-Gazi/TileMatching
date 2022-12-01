@@ -48,7 +48,7 @@ public class BoardController : MonoBehaviour
             _blastHandler.ShiftTilesAfterBlast(_board, matchingTiles, uniqueColumns);
             _blastHandler.RespawnBlastedTiles(_board, matchingTiles, _gameRule, _colorSelector);
 
-            ResetConnections();
+            _board.ResetConnections();
             _tileMatching.MatchTiles(_board);
 
 
@@ -58,19 +58,10 @@ public class BoardController : MonoBehaviour
                 for (int j = _gameRule.Rows - 1; j >= 0; j--)
                 {
                     _tileControllers[j, i].UpdateSprite(_tileMatching, _gameRule, _tileData);
-                    _tileControllers[j, i].UpdateTile(0);
+                    _tileControllers[j, i].UpdateTile();
                 }
             }
         }
     }
-    public void ResetConnections()
-    {
-        for (int i = 0; i < _board.Tiles.GetLength(0); i++)
-        {
-            for (int j = 0; j < _board.Tiles.GetLength(1); j++)
-            {
-                _board.Tiles[i, j].ConnectionId = -1;
-            }
-        }
-    }
+    
 }

@@ -1,63 +1,67 @@
 using UnityEngine;
 using DG.Tweening;
 
-//commented out we only need one asset
-//[CreateAssetMenu]
 public class Tweener : MonoBehaviour
 {
-    public GameRule GameRule;
-    public TileData TileData;
+    [SerializeField] private Vector3 _initialTileSpawnPosition;
 
-    public Vector3 InitialTileSpawnPosition;
+    [SerializeField] private Vector3 _tileReplacementHeight;
 
-    public Vector3 TileReplacementHeight;
+    [SerializeField] private Vector3 _boardStartingPosition;
 
-    public Vector3 BoardStartingPosition;
+    [SerializeField] private float _tilePlacementDelay;
 
-    public float TilePlacementDelay;
+    [SerializeField] private float _tilePlacementDuration;
 
-    public float TilePlacementDuration;
+    private Vector3[,] _tilePlacementPositions;
 
-    //[HideInInspector]
-    public Vector3[,] TilePlacementPositions;
+    private GameRule _gameRule;
+    private TileData _tileData;
 
     public void Awake()
     {
         DOTween.SetTweensCapacity(241,121);
-        TilePlacementPositions = new Vector3[GameRule.Rows,GameRule.Columns];
-        for(int i = 0; i < GameRule.Rows; i++)
+
+        _tilePlacementPositions = new Vector3[_gameRule.Rows, _gameRule.Columns];
+        for(int i = 0; i < _gameRule.Rows; i++)
         {
-            for (int j = 0; j < GameRule.Columns; j++)
+            for (int j = 0; j < _gameRule.Columns; j++)
             {
-                TilePlacementPositions[i, j] = CalculateFinalTilePositions(i,j);
+                _tilePlacementPositions[i, j] = CalculateFinalTilePositions(i,j);
             }
         }  
+    }
+
+    public Tweener(GameRule gameRule, TileData tileData)
+    {
+        _gameRule = gameRule;
+        _tileData = tileData;
     }
      
     public Vector3 CalculateFinalTilePositions(int row, int column)
     {
-        Vector3 placementPosition = BoardStartingPosition;
+        Vector3 placementPosition = _boardStartingPosition;
 
-        int rowSize = GameRule.Rows;
-        int columnSize = GameRule.Columns;
+        int rowSize = _gameRule.Rows;
+        int columnSize = _gameRule.Columns;
 
         //calculate the starting height of the rows
-        placementPosition.y += TileData.TileSize.y / 2 + TileData.TileSize.y * (rowSize - 1 - row);
+        placementPosition.y += _tileData.TileSize.y / 2 + _tileData.TileSize.y * (rowSize - 1 - row);
 
         //even number of columns
         if (columnSize % 2 == 0)
         {
             //calculate the starting position of the tiles in the case of even number of columns 
-            placementPosition.x -= TileData.TileSize.x * (columnSize / 2 - 1) + TileData.TileSize.x / 2;
+            placementPosition.x -= _tileData.TileSize.x * (columnSize / 2 - 1) + _tileData.TileSize.x / 2;
         }
         //odd number of columns
         else
         {
             //calculate the starting position of the tiles in the case of odd number of columns 
-            placementPosition.x -= TileData.TileSize.x * (columnSize / 2 - 1);
+            placementPosition.x -= _tileData.TileSize.x * (columnSize / 2 - 1);
         }
 
-        placementPosition.x += TileData.TileSize.x * column;
+        placementPosition.x += _tileData.TileSize.x * column;
         //placementPosition.y += tileData.TileSize.y * (rowSize - 1 - row);
 
         return placementPosition;
@@ -66,17 +70,30 @@ public class Tweener : MonoBehaviour
 
     public void PlaceTileInitially(Transform tileTransform, int tileRow, int tileColumn)
     {
+        tileTransform.position = _initialTileSpawnPosition;
+
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(tileTransform.DOMove(TilePlacementPositions[tileRow, tileColumn], TilePlacementDuration));
-        sequence.Append(tileTransform.DOShakeScale(0.3f, 0.2f));
-        //sequence.SetDelay(RuntimeTileReplacementDelay);
-        //RuntimeTileReplacementDelay += TilePlacementDelay;
+        TilePlacementSequence(sequence, tileTransform, tileRow, tileColumn);
+        sequence.SetDelay((tileRow*tileColumn + tileColumn) * _tilePlacementDelay);
     }
 
-    public void ShiftTile(Transform tileTransform, int tileRow, int tileColumn)
+    public void ShiftRemainingTile(Transform tileTransform, int tileRow, int tileColumn)
     {
         Sequence sequence = DOTween.Sequence();
-        sequence.Append(tileTransform.DOMove(TilePlacementPositions[tileRow, tileColumn], 0.3f));
+        TilePlacementSequence(sequence, tileTransform,tileRow,tileColumn);
+    }
+
+    public void ShiftRespawnedTile(Transform tileTransform, int tileRow, int tileColumn)
+    {
+        tileTransform.position = _tilePlacementPositions[tileRow, tileColumn] + _tileReplacementHeight;
+
+        Sequence sequence = DOTween.Sequence();
+        TilePlacementSequence(sequence, tileTransform, tileRow, tileColumn);
+    }
+    
+    public void TilePlacementSequence(Sequence sequence, Transform tileTransform, int tileRow, int tileColumn)
+    {
+        sequence.Append(tileTransform.DOMove(_tilePlacementPositions[tileRow, tileColumn], _tilePlacementDuration));
         sequence.Append(tileTransform.DOShakeScale(0.3f, 0.2f));
     }
     

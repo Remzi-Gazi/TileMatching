@@ -12,7 +12,6 @@ public class LoadManager : MonoBehaviour
     [SerializeField] private GameScene _mainMenuScene;
     [SerializeField] private GameScene _levelScene;
    
-    
 
     private AsyncOperation _loadingOperation;
 

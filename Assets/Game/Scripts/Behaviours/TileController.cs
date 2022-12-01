@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class TileController : MonoBehaviour
@@ -45,7 +44,7 @@ public class TileController : MonoBehaviour
         _tileSpriteRenderer.sortingOrder = -_tile.Row + 20;
     }
 
-    public void UpdateTile(int delayMultiplier)
+    public void UpdateTile()
     {
         if(_tile.TileState == TileState.Stable)
         {
@@ -53,10 +52,8 @@ public class TileController : MonoBehaviour
         }
         else if(_tile.TileState == TileState.Instantiated)
         {
-            //set initial position
-            _transform.position = _tweener.InitialTileSpawnPosition;
             //animate to final position
-            StartCoroutine(ScheduleTweens(delayMultiplier));
+            _tweener.PlaceTileInitially(_transform, _tile.Row,_tile.Column);
             //make tile stable
             _tile.TileState = TileState.Stable;
         }
@@ -69,16 +66,14 @@ public class TileController : MonoBehaviour
         }
         else if (_tile.TileState == TileState.Shifted)
         {
-            _tweener.ShiftTile(_transform, _tile.Row, _tile.Column);
+            _tweener.ShiftRemainingTile(_transform, _tile.Row, _tile.Column);
             //make tile stable
             _tile.TileState = TileState.Stable;
         }
         else if (_tile.TileState == TileState.Respawned)
         {
             _tileGameObject.SetActive(true);
-            //set initial respawn position
-            _transform.position = _tweener.TilePlacementPositions[_tile.Row, _tile.Column] + _tweener.TileReplacementHeight;
-            _tweener.ShiftTile(_transform, _tile.Row, _tile.Column);
+            _tweener.ShiftRespawnedTile(_transform, _tile.Row, _tile.Column);
             _tile.TileState = TileState.Stable;
         }
     }
@@ -86,13 +81,6 @@ public class TileController : MonoBehaviour
     public Tile Tile { get => _tile; set => _tile = value; }
     public Tweener Tweener { get => _tweener; set => _tweener = value; }
 
-    private IEnumerator ScheduleTweens(int delayMultiplier)
-    {
-        //Debug.Log(_tweener.RuntimeTileReplacementDelay);
-        yield return new WaitForSeconds(delayMultiplier * _tweener.TilePlacementDelay);
-        _tweener.PlaceTileInitially(_transform, _tile.Row, _tile.Column);
-        //_tilePlacementDelay += _tweener.TilePlacementDelay;
-    }
 
 }
 

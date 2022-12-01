@@ -1,26 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.Events;
 
 #if UNITY_EDITOR
 using System.IO;
 #endif
 
-[CreateAssetMenu(fileName = "ColorSelectorData", menuName = "Scriptable Objects/ColorSelectorData")]
+[CreateAssetMenu(fileName = "ColorSelectorData", menuName = "Scriptable Objects/Experimental/ColorSelectorData")]
 public class ColorSelectorData : ScriptableObject
 {
     public ColorSelectors colorSelector;
 
-    //public UnityEvent Response;
-
     public IColorSelector GetColorSelector()
     {
-
-        return new ColorSelector();
+        if(ColorSelectors.ColorSelector == colorSelector)
+        {
+            return new ColorSelector();
+        }
+        else
+        {
+            return new ColorSelector();
+        }
+       
     }
-
-    
-
 
     #if UNITY_EDITOR
     public void UpdateDatabase()
