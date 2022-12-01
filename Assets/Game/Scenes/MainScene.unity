@@ -197,13 +197,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 316ec60e1b5d6cd4d9fd3d3da35a16b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameRule: {fileID: 11400000, guid: 99172e2635045d7408df8eacd80e82b5, type: 2}
-  TileData: {fileID: 11400000, guid: 79339bbcf29e4ba4fb3e03876e1e0e0e, type: 2}
-  InitialTileSpawnPosition: {x: 0, y: -27, z: 9}
-  TileReplacementHeight: {x: 0, y: 10, z: 0}
-  BoardStartingPosition: {x: 0, y: -20.3, z: 9}
-  TilePlacementDelay: 0.025
-  TilePlacementDuration: 0.3
+  _initialTileSpawnPosition: {x: 0, y: -27, z: 9}
+  _tileReplacementHeight: {x: 0, y: 10, z: 0}
+  _boardStartingPosition: {x: 0, y: -20.3, z: 9}
+  _tilePlacementDelay: 0.025
+  _tilePlacementDuration: 0.3
 --- !u!1 &1141110592
 GameObject:
   m_ObjectHideFlags: 0

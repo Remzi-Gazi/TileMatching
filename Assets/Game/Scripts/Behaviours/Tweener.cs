@@ -18,24 +18,20 @@ public class Tweener : MonoBehaviour
     private GameRule _gameRule;
     private TileData _tileData;
 
-    public void Awake()
+    public void InitializeTweener(GameRule gameRule, TileData tileData)
     {
-        DOTween.SetTweensCapacity(241,121);
+        DOTween.SetTweensCapacity(300, 150);
+        _gameRule = gameRule;
+        _tileData = tileData;
 
         _tilePlacementPositions = new Vector3[_gameRule.Rows, _gameRule.Columns];
-        for(int i = 0; i < _gameRule.Rows; i++)
+        for (int i = 0; i < _gameRule.Rows; i++)
         {
             for (int j = 0; j < _gameRule.Columns; j++)
             {
-                _tilePlacementPositions[i, j] = CalculateFinalTilePositions(i,j);
+                _tilePlacementPositions[i, j] = CalculateFinalTilePositions(i, j);
             }
-        }  
-    }
-
-    public void InitializeTweener(GameRule gameRule, TileData tileData)
-    {
-        _gameRule = gameRule;
-        _tileData = tileData;
+        }
     }
      
     public Vector3 CalculateFinalTilePositions(int row, int column)
@@ -74,7 +70,7 @@ public class Tweener : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
         TilePlacementSequence(sequence, tileTransform, tileRow, tileColumn);
-        sequence.SetDelay((tileRow*tileColumn + tileColumn) * _tilePlacementDelay);
+        sequence.SetDelay((tileRow*_gameRule.Columns + tileColumn) * _tilePlacementDelay);
     }
 
     public void ShiftRemainingTile(Transform tileTransform, int tileRow, int tileColumn)

@@ -1,16 +1,18 @@
 ﻿public class Board
 {
     private Tile[,] _tiles;
+    private GameRule _gameRule;
 
     public Board(GameRule gameRule, IColorSelector colorSelector)
     {
-        _tiles = new Tile[gameRule.Rows, gameRule.Columns];
+        _gameRule = gameRule;
+        _tiles = new Tile[_gameRule.Rows, _gameRule.Columns];
         
-        for(int i = 0; i < gameRule.Rows; i++)
+        for(int i = 0; i < _gameRule.Rows; i++)
         {
-            for(int j = 0; j < gameRule.Columns; j++)
+            for(int j = 0; j < _gameRule.Columns; j++)
             {
-                int colorId = colorSelector.SelectColor(gameRule);
+                int colorId = colorSelector.SelectColor(_gameRule);
                 _tiles[i, j] = new Tile(colorId, i,j);
             }
         }
@@ -18,9 +20,9 @@
 
     public void ResetConnections()
     {
-        for (int i = 0; i < _tiles.GetLength(0); i++)
+        for (int i = 0; i < _gameRule.Rows; i++)
         {
-            for (int j = 0; j < _tiles.GetLength(1); j++)
+            for (int j = 0; j < _gameRule.Columns; j++)
             {
                 _tiles[i, j].ConnectionId = -1;
             }
