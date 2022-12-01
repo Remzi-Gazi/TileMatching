@@ -28,9 +28,10 @@ public class TileMatchingTable : ITileMatching
         }
     }
 
-    public int GetMatchTier(Tile tile, GameRule gameRule)
+    /*public int GetMatchTier(Tile tile, GameRule gameRule)
     {
-        if(tile.ConnectionId == -1)
+        
+        if (tile.ConnectionId == -1)
         {
             return 0;
         }
@@ -46,8 +47,26 @@ public class TileMatchingTable : ITileMatching
         {
             return 1;
         }
-        
+
         return 0;
+    }*/
+
+    public int GetMatchTierIndex(Tile tile, GameRule gameRule)
+    {
+        if (tile.ConnectionId == -1)
+        {
+            return 0;//DefaultTile
+        }
+
+        for (int i = gameRule.TierDatas.Length - 1; i >= 0; i--)
+        {
+            if (gameRule.TierDatas[i].lowerMatchLimit <= _matchTable[tile.ConnectionId].Count)
+            {
+                return i;
+            }
+        }
+
+        return 0;//DefaultTile
     }
 
     public List<Tile> GetMatchingTiles(Tile tile)
@@ -206,4 +225,6 @@ public class TileMatchingTable : ITileMatching
         _matchTable.Clear();
         _connectionId = 0;
     }
+
+    
 }

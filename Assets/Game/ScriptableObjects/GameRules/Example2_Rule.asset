@@ -19,3 +19,4 @@ MonoBehaviour:
     tierA: 4
     tierB: 6
     tierC: 8
+  TierDatas: []

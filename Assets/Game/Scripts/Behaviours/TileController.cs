@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class TileController : MonoBehaviour
@@ -20,11 +21,12 @@ public class TileController : MonoBehaviour
         _tileSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void UpdateSprite(ITileMatching tileMatching, GameRule gameRule, TileData tileData)
+    /*public void UpdateSprite(ITileMatching tileMatching, GameRule gameRule, TileData tileData)
     {
         int tileTier = tileMatching.GetMatchTier(_tile, gameRule);
         //dictionaryde keyle yapsan daha iyi olur
-        if(tileTier == 0)
+
+        if (tileTier == 0)
         {
             _tileSpriteRenderer.sprite = tileData.Tiles[_tile.ColorId].defaultTile;
         }
@@ -42,7 +44,17 @@ public class TileController : MonoBehaviour
         }
 
         _tileSpriteRenderer.sortingOrder = -_tile.Row + 20;
+    }*/
+
+    public void UpdateSprite(ITileMatching tileMatching, GameRule gameRule, TileData tileData)
+    {
+        int tileTierIndex = tileMatching.GetMatchTierIndex(_tile, gameRule);
+
+        _tileSpriteRenderer.sprite = gameRule.TierDatas[tileTierIndex].sprites[_tile.ColorId];
+
+        _tileSpriteRenderer.sortingOrder = -_tile.Row + 20;
     }
+
 
     public void UpdateTile()
     {
