@@ -32,7 +32,7 @@ public class Tweener : MonoBehaviour
         }  
     }
 
-    public Tweener(GameRule gameRule, TileData tileData)
+    public void InitializeTweener(GameRule gameRule, TileData tileData)
     {
         _gameRule = gameRule;
         _tileData = tileData;

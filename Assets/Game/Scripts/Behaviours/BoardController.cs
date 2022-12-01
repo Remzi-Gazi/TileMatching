@@ -24,6 +24,7 @@ public class BoardController : MonoBehaviour
     {
         _tileGenerator = GetComponent<TileGenerator>();
         _tweener = GetComponent<Tweener>();
+        _tweener.InitializeTweener(_gameRule,_tileData);
 
         _colorSelector = new ColorSelector();
         _boardShuffler = new RandomSwapBoardShuffler();
