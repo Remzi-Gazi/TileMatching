@@ -10,17 +10,7 @@ public class GameRule : ScriptableObject
 
     public int ColorCount;
 
-   // public MinimumMatchCount MinimumMatchCounts;
     public TierData[] TierDatas;
-
-
-   /* [Serializable]
-    public struct MinimumMatchCount
-    {
-        public int tierA;
-        public int tierB;
-        public int tierC;
-    }*/
 
     [Serializable]
     public struct TierData
@@ -29,11 +19,4 @@ public class GameRule : ScriptableObject
         public string tierName;
         public Sprite[] sprites;
     }
-
-    
-
-
-   
-
-
 }

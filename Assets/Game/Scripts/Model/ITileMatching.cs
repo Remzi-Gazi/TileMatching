@@ -4,7 +4,6 @@ public interface ITileMatching
 {
     void MatchTiles(Board board);
 
-   // int GetMatchTier(Tile tile, GameRule gameRule);
     int GetMatchTierIndex(Tile tile, GameRule gameRule);
 
     List<Tile> GetMatchingTiles(Tile tile);
