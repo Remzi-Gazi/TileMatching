@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "GameRule",menuName = "Scriptable Objects/GameRule")]
 public class GameRule : ScriptableObject

@@ -21,31 +21,6 @@ public class TileController : MonoBehaviour
         _tileSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    /*public void UpdateSprite(ITileMatching tileMatching, GameRule gameRule, TileData tileData)
-    {
-        int tileTier = tileMatching.GetMatchTier(_tile, gameRule);
-        //dictionaryde keyle yapsan daha iyi olur
-
-        if (tileTier == 0)
-        {
-            _tileSpriteRenderer.sprite = tileData.Tiles[_tile.ColorId].defaultTile;
-        }
-        else if (tileTier == 1)
-        {
-            _tileSpriteRenderer.sprite = tileData.Tiles[_tile.ColorId].tierA;
-        }
-        else if (tileTier == 2)
-        {
-            _tileSpriteRenderer.sprite = tileData.Tiles[_tile.ColorId].tierB;
-        }
-        else if (tileTier == 3)
-        {
-            _tileSpriteRenderer.sprite = tileData.Tiles[_tile.ColorId].tierC;
-        }
-
-        _tileSpriteRenderer.sortingOrder = -_tile.Row + 20;
-    }*/
-
     public void UpdateSprite(ITileMatching tileMatching, GameRule gameRule, TileData tileData)
     {
         int tileTierIndex = tileMatching.GetMatchTierIndex(_tile, gameRule);

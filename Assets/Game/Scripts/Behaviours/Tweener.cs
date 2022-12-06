@@ -29,12 +29,12 @@ public class Tweener : MonoBehaviour
         {
             for (int j = 0; j < _gameRule.Columns; j++)
             {
-                _tilePlacementPositions[i, j] = CalculateFinalTilePositions(i, j);
+                _tilePlacementPositions[i, j] = CalculateFinalTilePosition(i, j);
             }
         }
     }
      
-    public Vector3 CalculateFinalTilePositions(int row, int column)
+    public Vector3 CalculateFinalTilePosition(int row, int column)
     {
         Vector3 placementPosition = _boardStartingPosition;
 
@@ -56,10 +56,8 @@ public class Tweener : MonoBehaviour
             //calculate the starting position of the tiles in the case of odd number of columns 
             placementPosition.x -= _tileData.TileSize.x * (columnSize / 2 - 1);
         }
-
         placementPosition.x += _tileData.TileSize.x * column;
-        //placementPosition.y += tileData.TileSize.y * (rowSize - 1 - row);
-
+        
         return placementPosition;
     }
 
