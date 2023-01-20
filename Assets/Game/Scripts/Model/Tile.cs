@@ -16,24 +16,6 @@
         _tileState = TileState.Instantiated;
     }
 
-    public Tile(int row, int column)
-    {
-        _row = row;
-        _column = column;
-        _colorId = 0;//default color
-        _connectionId = -1;
-        _tileState = TileState.Instantiated;
-    }
-
-    public Tile(Tile tile)
-    {
-        _row = tile.Row;
-        _column = tile.Column;
-        _colorId = tile.ColorId;
-        _connectionId = tile._connectionId;
-        _tileState = TileState.Instantiated;
-    }
-
     public int Row { get => _row; set => _row = value; }
     public int Column { get => _column; set => _column = value; }
     public int ColorId { get => _colorId; set => _colorId = value; }

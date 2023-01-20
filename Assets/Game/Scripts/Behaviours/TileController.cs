@@ -21,12 +21,12 @@ public class TileController : MonoBehaviour
         _tileSpriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    public void UpdateSprite(ITileMatching tileMatching, GameRule gameRule, TileData tileData)
+    public void UpdateSprite(ITileMatching tileMatching, TierData[] tierData, Dictionary<string, List<Sprite>> tileSpriteMap)
     {
-        int tileTierIndex = tileMatching.GetMatchTierIndex(_tile, gameRule);
+        int tileTierIndex = tileMatching.GetMatchTierIndex(_tile.ConnectionId, tierData);
 
-        string tierName = gameRule.TierData[tileTierIndex].TierName;
-        _tileSpriteRenderer.sprite = tileData.TileSpriteMap[tierName][_tile.ColorId];
+        string tierName = tierData[tileTierIndex].TierName;
+        _tileSpriteRenderer.sprite = tileSpriteMap[tierName][_tile.ColorId];
         _tileSpriteRenderer.sortingOrder = -_tile.Row + 20;
     }
 

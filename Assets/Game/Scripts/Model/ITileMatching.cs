@@ -2,9 +2,9 @@ using System.Collections.Generic;
 
 public interface ITileMatching
 {
-    void MatchTiles(Board board);
+    void MatchTiles(Tile[,] tile);
 
-    int GetMatchTierIndex(Tile tile, GameRule gameRule);
+    int GetMatchTierIndex(int connectionId, TierData[] tierData);
 
-    List<Tile> GetMatchingTiles(Tile tile);
+    List<Tile> GetMatchingTiles(int connectionId);
 }

@@ -9,11 +9,6 @@ public class ColorSelector : IColorSelector
         _random = new Random();
     }
 
-    public ColorSelector(int seed)
-    {
-        _random = new Random(seed);
-    }
-    
     public int SelectColor(int colorCount)
     {
         return _random.Next(0, colorCount);

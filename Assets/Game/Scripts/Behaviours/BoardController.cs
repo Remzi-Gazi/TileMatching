@@ -33,7 +33,7 @@ public class BoardController : MonoBehaviour
         
 
         _board = new Board(_gameRule, _colorSelector);
-        _tileMatching.MatchTiles(_board);
+        _tileMatching.MatchTiles(_board.Tiles);
 
         _tileControllers = _tileGenerator.GenerateTiles(_board, _gameRule, _tileData, _tileMatching, _tweener);
     }
@@ -42,15 +42,15 @@ public class BoardController : MonoBehaviour
     {
         if (tileController.Tile.ConnectionId != -1)
         {
-            List<Tile> matchingTiles = _tileMatching.GetMatchingTiles(tileController.Tile);
-            _blastHandler.BlastTiles(_board, matchingTiles);
+            List<Tile> matchingTiles = _tileMatching.GetMatchingTiles(tileController.Tile.ConnectionId);
+            _blastHandler.BlastTiles(_board.Tiles, matchingTiles);
             HashSet<int> uniqueColumns = _blastHandler.FindBlastedColumns(matchingTiles);
 
-            _blastHandler.ShiftTilesAfterBlast(_board, uniqueColumns);
-            _blastHandler.RespawnBlastedTiles(_board, matchingTiles, _gameRule.ColorCount, _colorSelector);
+            _blastHandler.ShiftTilesAfterBlast(_board.Tiles, uniqueColumns);
+            _blastHandler.RespawnBlastedTiles(_board.Tiles, matchingTiles, _gameRule.ColorCount, _colorSelector);
 
             _board.ResetConnections();
-            _tileMatching.MatchTiles(_board);
+            _tileMatching.MatchTiles(_board.Tiles);
 
 
             for (int i = 0; i < _gameRule.Columns; i++)
@@ -58,7 +58,7 @@ public class BoardController : MonoBehaviour
                 //bottom to top
                 for (int j = _gameRule.Rows - 1; j >= 0; j--)
                 {
-                    _tileControllers[j, i].UpdateSprite(_tileMatching, _gameRule, _tileData);
+                    _tileControllers[j, i].UpdateSprite(_tileMatching, _gameRule.TierData, _tileData.TileSpriteMap);
                     _tileControllers[j, i].UpdateTile();
                 }
             }

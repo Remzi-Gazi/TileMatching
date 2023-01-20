@@ -2,12 +2,12 @@ using System.Collections.Generic;
 
 public class BlastHandler
 {
-    public void BlastTiles(Board board ,List<Tile> blastedTiles)
+    public void BlastTiles(Tile[,] tiles, List<Tile> blastedTiles)
     {
         for (int i = 0; i < blastedTiles.Count; i++)
         {
             blastedTiles[i].TileState = TileState.Blasted;
-            board.Tiles[blastedTiles[i].Row, blastedTiles[i].Column] = null;
+            tiles[blastedTiles[i].Row, blastedTiles[i].Column] = null;
         }
     }
 
@@ -23,24 +23,24 @@ public class BlastHandler
         return uniqueColumns;
     }
 
-    public void ShiftTilesAfterBlast(Board board, HashSet<int> uniqueColumns)
+    public void ShiftTilesAfterBlast(Tile[,] tiles, HashSet<int> uniqueColumns)
     {
         //start searching on blasted columns for empty locations from the bottom of the board
         foreach (int column in  uniqueColumns)
         {
-            for (int j = board.Tiles.GetLength(0) - 1; j >= 0; j--)
+            for (int j = tiles.GetLength(0) - 1; j >= 0; j--)
             {
-                if (board.Tiles[j, column] == null)
+                if (tiles[j, column] == null)
                 {
                     //Find the first non empty tile and swap it
                     for (int k = j; k >= 0; k--)
                     {
-                        if (board.Tiles[k, column] != null)
+                        if (tiles[k, column] != null)
                         {
-                            board.Tiles[j, column] = board.Tiles[k, column];
-                            board.Tiles[k, column] = null;
-                            board.Tiles[j, column].Row = j;
-                            board.Tiles[j, column].TileState = TileState.Shifted;
+                            tiles[j, column] = tiles[k, column];
+                            tiles[k, column] = null;
+                            tiles[j, column].Row = j;
+                            tiles[j, column].TileState = TileState.Shifted;
                             break;
                         }
                     }
@@ -49,15 +49,15 @@ public class BlastHandler
         }
     }
 
-    public void RespawnBlastedTiles(Board board, List<Tile> blastedTiles, int colorCount, IColorSelector colorSelector)
+    public void RespawnBlastedTiles(Tile[,] tiles, List<Tile> blastedTiles, int colorCount, IColorSelector colorSelector)
     {
         //search for empty locations starting from top of the board
         int tileCount = 0;
-        for (int j = 0; j < board.Tiles.GetLength(1); j++)
+        for (int j = 0; j < tiles.GetLength(1); j++)
         {
-            for (int i = 0; i < board.Tiles.GetLength(0); i++)
+            for (int i = 0; i < tiles.GetLength(0); i++)
             {
-                if (board.Tiles[i, j] != null)
+                if (tiles[i, j] != null)
                 {
                     break;
                 }
@@ -70,8 +70,8 @@ public class BlastHandler
                 respawnedTile.Row = i;
                 respawnedTile.Column = j;
                 respawnedTile.ColorId = colorSelector.SelectColor(colorCount);
-                board.Tiles[i, j] = respawnedTile;
-                board.Tiles[i, j].TileState = TileState.Respawned;
+                tiles[i, j] = respawnedTile;
+                tiles[i, j].TileState = TileState.Respawned;
 
             }
         }

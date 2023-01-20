@@ -7,9 +7,9 @@ public class TileData : ScriptableObject
 {
     public Dictionary<string, List<Sprite>> TileSpriteMap;
 
-    public Vector2 TileSize;
-
     public List<TileSprite> TileSprites;
+    
+    public Vector2 TileSize;
 
     private void OnEnable()
     {
@@ -21,7 +21,6 @@ public class TileData : ScriptableObject
         }
 
     }
-
 }
 
 [Serializable]

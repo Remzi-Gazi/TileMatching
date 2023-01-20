@@ -7,64 +7,62 @@ public class TileMatchingTable : ITileMatching
     private IBoardShuffler _boardShuffler;
 
     private int _connectionId;
-    
+
 
     public TileMatchingTable(IBoardShuffler boardShuffler)
     {
         _matchTable = new Dictionary<int, List<Tile>>();
         _boardShuffler = boardShuffler;
-        _connectionId = 0;   
+        _connectionId = 0;
     }
 
-    public void MatchTiles(Board board)
+    public void MatchTiles(Tile[,] tiles)
     {
         ClearOldMatches();
-        BoardRowCheck(board);
-        BoardColumnCheck(board);
+        BoardRowCheck(tiles);
+        BoardColumnCheck(tiles);
         //matching data is complete
 
         //no tiles matched
         if (_connectionId == 0)
         {
-            _boardShuffler.ShuffleBoard(board);
-            MatchTiles(board);
+            _boardShuffler.ShuffleBoard(tiles);
+            MatchTiles(tiles);
         }
     }
 
-    public int GetMatchTierIndex(Tile tile, GameRule gameRule)
+    public int GetMatchTierIndex(int connectionId, TierData[] tierData)
     {
-        if (tile.ConnectionId == -1)
+        List<Tile> matches;
+        for (int i = tierData.Length - 1; i >= 0; i--)
         {
-            return 0;//DefaultTile
-        }
-
-        for (int i = gameRule.TierData.Length - 1; i >= 1; i--)//except default tile
-        {
-            if (gameRule.TierData[i].LowerMatchLimit <= _matchTable[tile.ConnectionId].Count)
+            _matchTable.TryGetValue(connectionId, out matches);
+            //1 is the default value of not matching with any tiles(it's just matching itself :d) otherwise it is 2 or more
+            //we do not create that data for every tile to reduce the amount of elements in the table
+            if (tierData[i].LowerMatchLimit <= (matches?.Count ?? 1))
             {
                 return i;
             }
         }
-
         return 0;//DefaultTile
     }
 
-    public List<Tile> GetMatchingTiles(Tile tile)
+    public List<Tile> GetMatchingTiles(int connectionId)
     {
-        return _matchTable[tile.ConnectionId];
+        return _matchTable[connectionId];
     }
 
-    private void BoardRowCheck(Board board)
+    private void BoardRowCheck(Tile[,] tiles)
     {
         Tile firstMatchingTile = null;
 
         List<Tile> connectedTiles = new List<Tile>();
 
-        for (int i = 0; i < board.Tiles.GetLength(0); i++)
+        for (int i = 0; i < tiles.GetLength(0); i++)
         {
-            for (int j = 0; j < board.Tiles.GetLength(1); j++)
+            for (int j = 0; j < tiles.GetLength(1); j++)
             {
-                MatchCheck(board, ref firstMatchingTile, connectedTiles, i, j);
+                MatchCheck(tiles, ref firstMatchingTile, connectedTiles, i, j);
             }
 
             //benzer kontrolleri burda sadece arrayin sonuna geldiğimiz için yapalım
@@ -79,17 +77,17 @@ public class TileMatchingTable : ITileMatching
         }
     }
 
-    private void BoardColumnCheck(Board board)
+    private void BoardColumnCheck(Tile[,] tiles)
     {
         Tile firstMatchingTile = null;
 
         List<Tile> connectedTiles = new List<Tile>();
 
-        for (int i = 0; i < board.Tiles.GetLength(1); i++)
+        for (int i = 0; i < tiles.GetLength(1); i++)
         {
-            for (int j = 0; j < board.Tiles.GetLength(0); j++)
+            for (int j = 0; j < tiles.GetLength(0); j++)
             {
-                MatchCheck(board, ref firstMatchingTile, connectedTiles, j, i);
+                MatchCheck(tiles, ref firstMatchingTile, connectedTiles, j, i);
             }
 
             //benzer kontrolleri burda sadece arrayin sonuna geldiğimiz için yapalım
@@ -103,17 +101,17 @@ public class TileMatchingTable : ITileMatching
         }
     }
 
-    private void MatchCheck(Board board, ref Tile firstMatchingTile, List<Tile> connectedTiles, int i, int j)
+    private void MatchCheck(Tile[,] tiles, ref Tile firstMatchingTile, List<Tile> connectedTiles, int i, int j)
     {
         if (connectedTiles.Count == 0)
         {
-            connectedTiles.Add(board.Tiles[i, j]);
-            firstMatchingTile = board.Tiles[i, j];
+            connectedTiles.Add(tiles[i, j]);
+            firstMatchingTile = tiles[i, j];
         }
         //varsa ilk elemanın color id sine bak aynıysa ekle
-        else if (firstMatchingTile.ColorId == board.Tiles[i, j].ColorId)
+        else if (firstMatchingTile.ColorId == tiles[i, j].ColorId)
         {
-            connectedTiles.Add(board.Tiles[i, j]);
+            connectedTiles.Add(tiles[i, j]);
         }
         else
         {
@@ -126,15 +124,15 @@ public class TileMatchingTable : ITileMatching
                 AddMatchToTable(connectedTiles);
 
                 connectedTiles.Clear();
-                connectedTiles.Add(board.Tiles[i, j]);
-                firstMatchingTile = board.Tiles[i, j];
+                connectedTiles.Add(tiles[i, j]);
+                firstMatchingTile = tiles[i, j];
             }
             //listenin uzunluğu 1 den fazla değilse listeyi sıfırla
             else
             {
                 connectedTiles.Clear();
-                connectedTiles.Add(board.Tiles[i, j]);
-                firstMatchingTile = board.Tiles[i, j];
+                connectedTiles.Add(tiles[i, j]);
+                firstMatchingTile = tiles[i, j];
             }
         }
     }

@@ -9,38 +9,33 @@ public class RandomSwapBoardShuffler : IBoardShuffler
         _random = new Random();
     }
 
-    public RandomSwapBoardShuffler(int seed)
-    {
-        _random = new Random(seed);
-    }
-
-    public void ShuffleBoard(Board board)
+    public void ShuffleBoard(Tile[,] tiles)
     {
         Tile tempTile;
 
-        for(int i = 0; i < board.Tiles.GetLength(0); i++)
+        for(int i = 0; i < tiles.GetLength(0); i++)
         {
-            for (int j = 0; j < board.Tiles.GetLength(1); j++)
+            for (int j = 0; j < tiles.GetLength(1); j++)
             {
                 //Reset any connections
-                board.Tiles[i, j].ConnectionId = -1;
+                tiles[i, j].ConnectionId = -1;
                 
-                tempTile = board.Tiles[i, j];
+                tempTile = tiles[i, j];
                 
-                int randomRow = _random.Next(0, board.Tiles.GetLength(0));
-                int randomColumn = _random.Next(0, board.Tiles.GetLength(1));
+                int randomRow = _random.Next(0, tiles.GetLength(0));
+                int randomColumn = _random.Next(0, tiles.GetLength(1));
 
                 //swap the tiles
-                board.Tiles[i, j] = board.Tiles[randomRow, randomColumn];
-                board.Tiles[i, j].Row = i;
-                board.Tiles[i, j].Column = j;
+                tiles[i, j] = tiles[randomRow, randomColumn];
+                tiles[i, j].Row = i;
+                tiles[i, j].Column = j;
 
-                board.Tiles[randomRow, randomColumn] = tempTile;
-                board.Tiles[randomRow, randomColumn].Row = randomRow;
-                board.Tiles[randomRow, randomColumn].Column = randomColumn;
+                tiles[randomRow, randomColumn] = tempTile;
+                tiles[randomRow, randomColumn].Row = randomRow;
+                tiles[randomRow, randomColumn].Column = randomColumn;
 
-                board.Tiles[i, j].TileState = TileState.Shifted;
-                board.Tiles[randomRow, randomColumn].TileState = TileState.Shifted;
+                tiles[i, j].TileState = TileState.Shifted;
+                tiles[randomRow, randomColumn].TileState = TileState.Shifted;
 
             }
         }

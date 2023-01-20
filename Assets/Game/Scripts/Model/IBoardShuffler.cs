@@ -1,4 +1,4 @@
 public interface IBoardShuffler
 {
-    public void ShuffleBoard(Board board);
+    public void ShuffleBoard(Tile[,] tiles);
 }

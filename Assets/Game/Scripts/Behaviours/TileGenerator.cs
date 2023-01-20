@@ -16,7 +16,7 @@ public class TileGenerator : MonoBehaviour
                 tileControllers[i, j] = Instantiate(_emptyTile).GetComponent<TileController>();
                 tileControllers[i, j].Tile = board.Tiles[i, j];
                 tileControllers[i, j].Tweener = tweener;
-                tileControllers[i, j].UpdateSprite(tileMatching, gameRule, tileData);
+                tileControllers[i, j].UpdateSprite(tileMatching, gameRule.TierData, tileData.TileSpriteMap);
                 tileControllers[i, j].UpdateTile();
             }
         }
