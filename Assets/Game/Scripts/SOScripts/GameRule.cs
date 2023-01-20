@@ -9,13 +9,12 @@ public class GameRule : ScriptableObject
 
     public int ColorCount;
 
-    public TierData[] TierDatas;
+    public TierData[] TierData;
+}
 
-    [Serializable]
-    public struct TierData
-    {
-        public int lowerMatchLimit;
-        public string tierName;
-        public Sprite[] sprites;
-    }
+[Serializable]
+public class TierData
+{
+    public int LowerMatchLimit;
+    public string TierName;
 }

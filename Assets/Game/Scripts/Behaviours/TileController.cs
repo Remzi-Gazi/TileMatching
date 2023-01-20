@@ -25,8 +25,8 @@ public class TileController : MonoBehaviour
     {
         int tileTierIndex = tileMatching.GetMatchTierIndex(_tile, gameRule);
 
-        _tileSpriteRenderer.sprite = gameRule.TierDatas[tileTierIndex].sprites[_tile.ColorId];
-
+        string tierName = gameRule.TierData[tileTierIndex].TierName;
+        _tileSpriteRenderer.sprite = tileData.TileSpriteMap[tierName][_tile.ColorId];
         _tileSpriteRenderer.sortingOrder = -_tile.Row + 20;
     }
 

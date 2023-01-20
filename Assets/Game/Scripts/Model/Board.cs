@@ -12,7 +12,7 @@
         {
             for(int j = 0; j < _gameRule.Columns; j++)
             {
-                int colorId = colorSelector.SelectColor(_gameRule);
+                int colorId = colorSelector.SelectColor(_gameRule.ColorCount);
                 _tiles[i, j] = new Tile(colorId, i,j);
             }
         }

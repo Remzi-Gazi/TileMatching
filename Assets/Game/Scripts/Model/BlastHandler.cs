@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 public class BlastHandler
 {
@@ -24,10 +23,10 @@ public class BlastHandler
         return uniqueColumns;
     }
 
-    public void ShiftTilesAfterBlast(Board board, List<Tile> blastedTiles, HashSet<int> uniqueColumns)
+    public void ShiftTilesAfterBlast(Board board, HashSet<int> uniqueColumns)
     {
         //start searching on blasted columns for empty locations from the bottom of the board
-        foreach (int column in uniqueColumns)
+        foreach (int column in  uniqueColumns)
         {
             for (int j = board.Tiles.GetLength(0) - 1; j >= 0; j--)
             {
@@ -50,7 +49,7 @@ public class BlastHandler
         }
     }
 
-    public void RespawnBlastedTiles(Board board, List<Tile> blastedTiles, GameRule gameRule, IColorSelector colorSelector)
+    public void RespawnBlastedTiles(Board board, List<Tile> blastedTiles, int colorCount, IColorSelector colorSelector)
     {
         //search for empty locations starting from top of the board
         int tileCount = 0;
@@ -70,7 +69,7 @@ public class BlastHandler
                 //reset values
                 respawnedTile.Row = i;
                 respawnedTile.Column = j;
-                respawnedTile.ColorId = colorSelector.SelectColor(gameRule);
+                respawnedTile.ColorId = colorSelector.SelectColor(colorCount);
                 board.Tiles[i, j] = respawnedTile;
                 board.Tiles[i, j].TileState = TileState.Respawned;
 

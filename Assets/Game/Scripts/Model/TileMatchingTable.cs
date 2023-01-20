@@ -3,14 +3,17 @@
 public class TileMatchingTable : ITileMatching
 {
     private Dictionary<int, List<Tile>> _matchTable;
-    private int _connectionId;
+
     private IBoardShuffler _boardShuffler;
+
+    private int _connectionId;
+    
 
     public TileMatchingTable(IBoardShuffler boardShuffler)
     {
         _matchTable = new Dictionary<int, List<Tile>>();
-        _connectionId = 0;
         _boardShuffler = boardShuffler;
+        _connectionId = 0;   
     }
 
     public void MatchTiles(Board board)
@@ -35,9 +38,9 @@ public class TileMatchingTable : ITileMatching
             return 0;//DefaultTile
         }
 
-        for (int i = gameRule.TierDatas.Length - 1; i >= 1; i--)//except default tile
+        for (int i = gameRule.TierData.Length - 1; i >= 1; i--)//except default tile
         {
-            if (gameRule.TierDatas[i].lowerMatchLimit <= _matchTable[tile.ConnectionId].Count)
+            if (gameRule.TierData[i].LowerMatchLimit <= _matchTable[tile.ConnectionId].Count)
             {
                 return i;
             }

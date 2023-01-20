@@ -1,4 +1,4 @@
 public interface IColorSelector
 {
-    public int SelectColor(GameRule gameRule);
+    public int SelectColor(int colorCount);
 }

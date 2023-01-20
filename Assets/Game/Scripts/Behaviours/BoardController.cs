@@ -46,8 +46,8 @@ public class BoardController : MonoBehaviour
             _blastHandler.BlastTiles(_board, matchingTiles);
             HashSet<int> uniqueColumns = _blastHandler.FindBlastedColumns(matchingTiles);
 
-            _blastHandler.ShiftTilesAfterBlast(_board, matchingTiles, uniqueColumns);
-            _blastHandler.RespawnBlastedTiles(_board, matchingTiles, _gameRule, _colorSelector);
+            _blastHandler.ShiftTilesAfterBlast(_board, uniqueColumns);
+            _blastHandler.RespawnBlastedTiles(_board, matchingTiles, _gameRule.ColorCount, _colorSelector);
 
             _board.ResetConnections();
             _tileMatching.MatchTiles(_board);

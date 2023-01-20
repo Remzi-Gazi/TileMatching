@@ -15,7 +15,12 @@ MonoBehaviour:
   Rows: 2
   Columns: 2
   ColorCount: 3
-  MinimumMatchCounts:
-    tierA: 2
-    tierB: 4
-    tierC: 6
+  TierData:
+  - LowerMatchLimit: 0
+    TierName: Default
+  - LowerMatchLimit: 3
+    TierName: TierA
+  - LowerMatchLimit: 7
+    TierName: TierB
+  - LowerMatchLimit: 9
+    TierName: TierC

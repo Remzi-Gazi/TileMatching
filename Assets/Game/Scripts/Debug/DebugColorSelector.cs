@@ -23,13 +23,6 @@ public class DebugColorSelector : IColorSelector
         _selectedColor = -1;
     }
 
-    public DebugColorSelector()
-    {
-        _random = new Random();
-
-        _repeatSelectedColor = false;
-    }
-
     public DebugColorSelector(int seed, bool repeatSelectedColor, int repeatCount)
     {
         _random = new Random(seed);
@@ -41,14 +34,14 @@ public class DebugColorSelector : IColorSelector
         _selectedColor = -1;
     }
 
-    public int SelectColor(GameRule gameRule)
+    public int SelectColor(int colorCount)
     {
         if (_repeatSelectedColor)
         {
             //first selection
             if (_selectedColor == -1)
             {
-                _selectedColor = _random.Next(0, gameRule.ColorCount);
+                _selectedColor = _random.Next(0, colorCount);
             }
 
 
@@ -59,16 +52,17 @@ public class DebugColorSelector : IColorSelector
             }
             else
             {
-                //return other than last selected color
+                
                 _returnedColorCounter = 1;
+                //return other than last selected color
                 //_selectedColor = (_selectedColor + _random.Next(1, gameRule.ColorCount - 1)) % gameRule.ColorCount;
-                _selectedColor = _random.Next(0, gameRule.ColorCount);
+                _selectedColor = _random.Next(0, colorCount);
                 return _selectedColor;
             }
         }
         else
         {
-            return _random.Next(0, gameRule.ColorCount);
+            return _random.Next(0, colorCount);
         }
         
     }
