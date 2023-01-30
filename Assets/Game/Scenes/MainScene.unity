@@ -134,7 +134,6 @@ GameObject:
   - component: {fileID: 350526475}
   - component: {fileID: 350526480}
   - component: {fileID: 350526479}
-  - component: {fileID: 350526481}
   m_Layer: 0
   m_Name: Board
   m_TagString: Untagged
@@ -180,70 +179,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 350526472}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 704ed5838b3051c4faf7045244505bf1, type: 3}
+  m_Script: {fileID: 11500000, guid: 878e1edf009727f44946f66d73e98503, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _gameRule: {fileID: 11400000, guid: 99172e2635045d7408df8eacd80e82b5, type: 2}
   _tileData: {fileID: 11400000, guid: 79339bbcf29e4ba4fb3e03876e1e0e0e, type: 2}
---- !u!114 &350526481
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 350526472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 316ec60e1b5d6cd4d9fd3d3da35a16b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _initialTileSpawnPosition: {x: 0, y: -27, z: 9}
-  _tileReplacementHeight: {x: 0, y: 10, z: 0}
-  _boardStartingPosition: {x: 0, y: -20.3, z: 9}
-  _tilePlacementDelay: 0.025
-  _tilePlacementDuration: 0.3
---- !u!1 &1141110592
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1141110594}
-  - component: {fileID: 1141110595}
-  m_Layer: 0
-  m_Name: MouseController
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1141110594
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1141110592}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1141110595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1141110592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da646810cf6291c4bb663bc8856de657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _boardController: {fileID: 350526480}

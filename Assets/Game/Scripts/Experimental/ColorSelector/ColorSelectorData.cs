@@ -10,7 +10,7 @@ public class ColorSelectorData : ScriptableObject
 {
     public ColorSelectors colorSelector;
 
-    public IColorSelector GetColorSelector()
+    /*public IColorSelector GetColorSelector()
     {
         if(ColorSelectors.ColorSelector == colorSelector)
         {
@@ -21,7 +21,7 @@ public class ColorSelectorData : ScriptableObject
             return new ColorSelector();
         }
        
-    }
+    }*/
 
     #if UNITY_EDITOR
     public void UpdateDatabase()

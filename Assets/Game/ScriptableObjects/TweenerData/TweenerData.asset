@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00ce19b11c75418459d794d16d094c7c, type: 3}
+  m_Name: TweenerData
+  m_EditorClassIdentifier: 
+  InitialTileSpawnPosition: {x: 0, y: -27, z: 9}
+  TileReplacementHeight: {x: 0, y: 10, z: 0}
+  BoardStartingPosition: {x: 0, y: -20.3, z: 9}
+  TileSize: {x: 2.2, y: 2.27}
+  TilePlacementDelay: 0.025
+  TilePlacementDuration: 0.3
+  GameRule: {fileID: 11400000, guid: 99172e2635045d7408df8eacd80e82b5, type: 2}

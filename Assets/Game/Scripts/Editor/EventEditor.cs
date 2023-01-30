@@ -1,7 +1,5 @@
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-
 
 [CustomEditor(typeof(VoidEventChannel), editorForChildClasses: true)]
 public class EventEditor : Editor
@@ -17,6 +15,4 @@ public class EventEditor : Editor
             e.RaiseEvent();
     }
 }
-
-#endif
 

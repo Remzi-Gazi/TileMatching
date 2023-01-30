@@ -8,8 +8,6 @@ public class TileData : ScriptableObject
     public Dictionary<string, List<Sprite>> TileSpriteMap;
 
     public List<TileSprite> TileSprites;
-    
-    public Vector2 TileSize;
 
     private void OnEnable()
     {
@@ -19,7 +17,6 @@ public class TileData : ScriptableObject
         {
             TileSpriteMap.Add(TileSprites[i].TierName, TileSprites[i].TierSprites);
         }
-
     }
 }
 

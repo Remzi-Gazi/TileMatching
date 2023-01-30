@@ -29,13 +29,11 @@ public class RandomSwapBoardShuffler : IBoardShuffler
                 tiles[i, j] = tiles[randomRow, randomColumn];
                 tiles[i, j].Row = i;
                 tiles[i, j].Column = j;
-
+                tiles[i, j].Shifted = true;
+                
                 tiles[randomRow, randomColumn] = tempTile;
                 tiles[randomRow, randomColumn].Row = randomRow;
                 tiles[randomRow, randomColumn].Column = randomColumn;
-
-                tiles[i, j].TileState = TileState.Shifted;
-                tiles[randomRow, randomColumn].TileState = TileState.Shifted;
 
             }
         }

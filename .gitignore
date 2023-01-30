@@ -13,6 +13,7 @@
 /[Aa]ssets/[Pp]lugins/
 /[Aa]ssets/3rdParty/
 /[Aa]ssets/[Tt]extMesh Pro/
+/.idea
 
 # MemoryCaptures can get excessive in size.
 # They also could contain extremely sensitive data

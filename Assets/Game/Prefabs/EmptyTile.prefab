@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3116276697299321752}
   - component: {fileID: 3116276697299321755}
-  - component: {fileID: 9101109184541340110}
   - component: {fileID: 1243760691011414757}
+  - component: {fileID: 6337033851640931361}
   m_Layer: 0
   m_Name: EmptyTile
   m_TagString: Untagged
@@ -86,21 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9101109184541340110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3116276697299321754}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 924abbfd527240942898503a949d5606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _tileData: {fileID: 11400000, guid: 79339bbcf29e4ba4fb3e03876e1e0e0e, type: 2}
-  _gameRule: {fileID: 11400000, guid: 99172e2635045d7408df8eacd80e82b5, type: 2}
-  _tweener: {fileID: 11400000, guid: 862a41e6f7c364540b6d0060ded09d58, type: 2}
 --- !u!65 &1243760691011414757
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114,3 +99,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6337033851640931361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3116276697299321754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 134b3f27a2972d043beaf83f67885777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameRule: {fileID: 11400000, guid: 99172e2635045d7408df8eacd80e82b5, type: 2}
+  _tweenerData: {fileID: 11400000, guid: 750863cfe4ff78e40b6afab8737664c6, type: 2}

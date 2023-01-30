@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using JetBrains.Annotations;
 
 public class TileMatchingTable : ITileMatching
 {
@@ -8,19 +9,17 @@ public class TileMatchingTable : ITileMatching
 
     private int _connectionId;
 
-
-    public TileMatchingTable(IBoardShuffler boardShuffler)
+    public TileMatchingTable()
     {
         _matchTable = new Dictionary<int, List<Tile>>();
-        _boardShuffler = boardShuffler;
+        _boardShuffler = new RandomSwapBoardShuffler();
         _connectionId = 0;
     }
 
     public void MatchTiles(Tile[,] tiles)
     {
-        ClearOldMatches();
-        BoardRowCheck(tiles);
-        BoardColumnCheck(tiles);
+        BoardCheck(tiles,0,1);//check rows
+        BoardCheck(tiles,1,0);//check columns
         //matching data is complete
 
         //no tiles matched
@@ -31,20 +30,19 @@ public class TileMatchingTable : ITileMatching
         }
     }
 
-    public int GetMatchTierIndex(int connectionId, TierData[] tierData)
+    public string GetMatchTierName(int connectionId, TierData[] tierData)
     {
-        List<Tile> matches;
         for (int i = tierData.Length - 1; i >= 0; i--)
         {
-            _matchTable.TryGetValue(connectionId, out matches);
+            _matchTable.TryGetValue(connectionId, out List<Tile> matches);
             //1 is the default value of not matching with any tiles(it's just matching itself :d) otherwise it is 2 or more
             //we do not create that data for every tile to reduce the amount of elements in the table
             if (tierData[i].LowerMatchLimit <= (matches?.Count ?? 1))
             {
-                return i;
+                return tierData[i].TierName;
             }
         }
-        return 0;//DefaultTile
+        return string.Empty;//useless
     }
 
     public List<Tile> GetMatchingTiles(int connectionId)
@@ -52,42 +50,24 @@ public class TileMatchingTable : ITileMatching
         return _matchTable[connectionId];
     }
 
-    private void BoardRowCheck(Tile[,] tiles)
+    private void BoardCheck(Tile[,] tiles, int dimension1, int dimension2)
     {
         Tile firstMatchingTile = null;
 
         List<Tile> connectedTiles = new List<Tile>();
 
-        for (int i = 0; i < tiles.GetLength(0); i++)
+        for (int i = 0; i < tiles.GetLength(dimension1); i++)
         {
-            for (int j = 0; j < tiles.GetLength(1); j++)
+            for (int j = 0; j < tiles.GetLength(dimension2); j++)
             {
-                MatchCheck(tiles, ref firstMatchingTile, connectedTiles, i, j);
-            }
-
-            //benzer kontrolleri burda sadece arrayin sonuna geldiğimiz için yapalım
-            //listenin uzunluğuna bak 1 den fazlaysa ekle
-            //listeyi temizle
-            if (connectedTiles.Count > 1)
-            {
-                AddMatchToTable(connectedTiles);
-            }
-            connectedTiles.Clear();
-
-        }
-    }
-
-    private void BoardColumnCheck(Tile[,] tiles)
-    {
-        Tile firstMatchingTile = null;
-
-        List<Tile> connectedTiles = new List<Tile>();
-
-        for (int i = 0; i < tiles.GetLength(1); i++)
-        {
-            for (int j = 0; j < tiles.GetLength(0); j++)
-            {
-                MatchCheck(tiles, ref firstMatchingTile, connectedTiles, j, i);
+                if (dimension1 == 0)
+                {
+                    MatchCheck(tiles, ref firstMatchingTile, connectedTiles, i, j);
+                }
+                else
+                {
+                    MatchCheck(tiles, ref firstMatchingTile, connectedTiles, j, i);
+                }
             }
 
             //benzer kontrolleri burda sadece arrayin sonuna geldiğimiz için yapalım
@@ -155,7 +135,6 @@ public class TileMatchingTable : ITileMatching
                 }
             }
         }
-        
 
         //listede daha önceden hiçbir eşleşme olmamış o zaman direkt ekleyebiliriz
         if (tileConnectionId == -1)
@@ -198,11 +177,16 @@ public class TileMatchingTable : ITileMatching
         
     }
 
-    private void ClearOldMatches()
+    public void ClearOldMatches(Tile[,] tiles)
     {
+        for (int i = 0; i < tiles.GetLength(0); i++)
+        {
+            for (int j = 0; j < tiles.GetLength(1); j++)
+            {
+                tiles[i, j].ConnectionId = -1;
+            }
+        }
         _matchTable.Clear();
         _connectionId = 0;
     }
-
-    
 }
